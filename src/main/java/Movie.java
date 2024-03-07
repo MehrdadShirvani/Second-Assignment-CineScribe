@@ -1,9 +1,5 @@
-import com.fasterxml.jackson.core.JsonParser;
-
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.io.BufferedReader;
@@ -14,19 +10,28 @@ import  org.json.JSONObject;
 public class Movie {
     public static final String API_KEY = "b8a113e0";
 
+    public String title;
+    public String description;
+
     //region Fields
-    int ImdbVotes;
+    int imdbVotes;
     String runtime;
     String rating;
+    public String director;
+    String publishedDate;
     ArrayList<Actors> Actors;
     //endregion
     public Movie(String title) throws IOException
     {
+
         String movieJsonInfo = getMovieData(title);
-        getImdbVotesViaApi(movieJsonInfo);
-        getRatingViaApi(movieJsonInfo);
+        this.title = title;
+        description = getMovieDescriptionViaApi(movieJsonInfo);
+        director = getMovieDirectorViaApi(movieJsonInfo);
+        imdbVotes = getImdbVotesViaApi(movieJsonInfo);
+        rating = getRatingViaApi(movieJsonInfo);
         getActorListViaApi(movieJsonInfo);
-        getRuntimeViaApi(movieJsonInfo);
+        runtime = getRuntimeViaApi(movieJsonInfo);
     }
     public Movie(ArrayList<String> actorsList, String rating, int ImdbVotes)
     {
@@ -71,11 +76,24 @@ public class Movie {
 
         return stringBuilder.toString();
     }
+
+    private String getMovieDescriptionViaApi(String movieInfoJson)
+    {
+        JSONObject jsonObject = new JSONObject(movieInfoJson);
+        description = jsonObject.get("Plot").toString();
+        return description;
+    }
+    private String getMovieDirectorViaApi(String movieInfoJson)
+    {
+        JSONObject jsonObject = new JSONObject(movieInfoJson);
+        director = jsonObject.get("Director").toString();
+        return director;
+    }
     public int getImdbVotesViaApi(String movieInfoJson)
     {
         JSONObject jsonObject = new JSONObject(movieInfoJson);
-        ImdbVotes = Integer.parseInt(jsonObject.get("imdbVotes").toString().replace(",",""));
-        return ImdbVotes;
+        imdbVotes = Integer.parseInt(jsonObject.get("imdbVotes").toString().replace(",",""));
+        return imdbVotes;
     }
 
     public String getRatingViaApi(String movieInfoJson)

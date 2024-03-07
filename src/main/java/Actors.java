@@ -19,11 +19,12 @@ public class Actors {
     public Actors(String actorName) throws Exception
     {
         String actorInfoJson = getActorData(actorName);
-
+        name = actorName;
         getNetWorthViaApi(actorInfoJson);
         getNationality(actorInfoJson);
         isAlive(actorInfoJson);
         getDateOfDeathViaApi(actorInfoJson);
+
     }
     public Actors(String netWorth, boolean isAlive)
     {
