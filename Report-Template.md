@@ -11,12 +11,13 @@ An app that, well, aggregates movies...
 
 
 ## About this app
-So, this my first Java console application that uses APIs. I have had worked with APIs before this, but never once with Java. So I knew the basics, therefor the hard part was figuring how to do it with Java.
+So, this my first Java console application that uses APIs. I had worked with APIs before this, but never once with Java. So I knew the basics, therefor the hard part was figuring how to do it with Java.
 
 This is the step-by-step report of my process:
 
 1. I first needed the API key for the Movies and Actors APIs. You can find the links in README.md 
-2. I tested the APIs using Postman to understand the structure of the json files
+2. I tested the APIs using Postman to understand the structure of the JSON files.
+
 This is an example:
     ```
     {
